@@ -11,6 +11,11 @@
     <ul id="practicas-list"></ul>
 
     <script>
+        // Function to construct the URL for a file in the PRACTICAS directory
+        function constructUrl(filename) {
+            return window.location.origin + window.location.pathname + 'PRACTICAS/' + filename;
+        }
+
         // Obtener la lista de archivos en el directorio /PRACTICAS/ usando GitHub API
         fetch('https://api.github.com/repos/OffBranded/Computacion-lol/contents/PRACTICAS')
             .then(response => response.json())
@@ -23,7 +28,7 @@
                 htmlFiles.forEach(file => {
                     const listItem = document.createElement('li');
                     const link = document.createElement('a');
-                    link.href = file.html_url;
+                    link.href = constructUrl(file.name);
                     link.textContent = file.name.replace('.html', '');
                     listItem.appendChild(link);
                     practicasList.appendChild(listItem);
