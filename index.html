@@ -26,6 +26,7 @@
             padding: 20px;
             margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	    text-align: center;
         }
         h1, h2 {
             text-align: center;
@@ -35,6 +36,8 @@
         ul {
             list-style-type: none;
             padding: 0;
+	    display: inline-block;
+	    text-align: left;
         }
         li {
             margin-bottom: 10px;
@@ -47,7 +50,7 @@
             align-items: center;
         }
         a:hover {
-            color: #45a049; /* Cambiar color a un verde más oscuro (#45a049) al pasar el mouse */
+            color: #388e3c; /* Cambiar color a un verde más oscuro (#45a049) al pasar el mouse */
         }
         .icon {
             margin-right: 5px; /* Ajusta la separación entre el icono y el texto */
@@ -71,6 +74,21 @@
             80% { color: #0000ff; } /* Azul */
             100% { color: #8a2be2; } /* Violeta */
         }
+        .easter-egg-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            animation: moveDown 3s ease-in-out forwards;
+            opacity: 0;
+        }
+        @keyframes moveDown {
+            0% { top: 0; opacity: 0; } /* Initial position, invisible */
+            40% { opacity: 1; } /* Pause for 40% of the animation duration */
+            60% { opacity: 1; } /* Pause for 40% of the animation duration */
+            100% { top: 100%; opacity: 0; } /* Move down to the center and fade out */
+        }
     </style>
 </head>
 <body>
@@ -89,11 +107,30 @@
     </div>
 
     <footer>
-        <span>ᐅ Hecho por SQG‎& ᐊ ‎ ‎ ‎ ‎ ‎ </span>
-        <a href="https://github.com/OffBranded/Computacion-lol" target="_blank">Ver en GitHub</a>
+        <span id="easter-egg-trigger">ᐅHecho por SQG‎ᐊ‎‎ ‎ </span>
+        <a href="https://github.com/OffBranded/Computacion-lol" target="_blank">‎ ‎ Ver en GitHub</a>
     </footer>
 
     <script>
+
+        document.getElementById('easter-egg-trigger').addEventListener('click', function() {
+            const easterEggText = document.createElement('div');
+            easterEggText.textContent = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+            easterEggText.classList.add('easter-egg-text');
+            document.body.appendChild(easterEggText);
+
+            // Obtener la altura total de la página
+            const pageHeight = document.body.scrollHeight;
+        
+            // Mover el "Easter egg" al final de la página
+            easterEggText.style.top = `${pageHeight}px`;
+
+            // Remover el "Easter egg" después de un tiempo
+            setTimeout(function() {
+                easterEggText.remove();
+            }, 3000); // Remover después de 2 segundos
+        });
+
         // Obtener la lista de archivos en el directorio /PRACTICAS/ usando GitHub API
         fetch('https://api.github.com/repos/offbranded/Computacion-lol/contents/PRACTICAS')
             .then(response => response.json())
@@ -135,3 +172,4 @@
     </script>
 </body>
 </html>
+
