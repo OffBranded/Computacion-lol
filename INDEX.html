@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Prácticas</title>
+</head>
+<body>
+    <h1>Bienvenido a la página de Prácticas</h1>
+    <h2>Listado de Prácticas</h2>
+    <ul id="practicas-list"></ul>
+
+    <script>
+        // Obtener la lista de archivos en el directorio /PRACTICAS/ usando GitHub API
+        fetch('https://api.github.com/repos/OffBranded/Computacion-lol/contents/PRACTICAS')
+            .then(response => response.json())
+            .then(data => {
+                // Filtrar los archivos HTML
+                const htmlFiles = data.filter(file => file.name.endsWith('.html'));
+
+                // Generar enlaces para cada archivo HTML encontrado
+                const practicasList = document.getElementById('practicas-list');
+                htmlFiles.forEach(file => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = file.html_url;
+                    link.textContent = file.name.replace('.html', '');
+                    listItem.appendChild(link);
+                    practicasList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener la lista de archivos:', error);
+            });
+    </script>
+</body>
+</html>
