@@ -3,15 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Prácticas</title>
+    <title>HUB</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/OffBranded/Computacion-lol/main/sources/network.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .section {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #4CAF50; /* Cambiar color a verde (#4CAF50) */
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        a:hover {
+            color: #45a049; /* Cambiar color a un verde más oscuro (#45a049) al pasar el mouse */
+        }
+        .icon {
+            margin-right: 5px; /* Ajusta la separación entre el icono y el texto */
+        }
+        footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            animation: rainbow 5s infinite; /* Animación de cambio de color estilo arcoíris */
+        }
+
+        /* Definir animación de cambio de color */
+        @keyframes rainbow {
+            0% { color: #ff0000; } /* Rojo */
+            20% { color: #ff7f00; } /* Naranja */
+            40% { color: #ffff00; } /* Amarillo */
+            60% { color: #00ff00; } /* Verde */
+            80% { color: #0000ff; } /* Azul */
+            100% { color: #8a2be2; } /* Violeta */
+        }
+    </style>
 </head>
 <body>
-    <h1>Bienvenido a la página de Prácticas</h1>
-    <h2>Listado de Prácticas</h2>
-    <ul id="practicas-list"></ul>
+    <div class="container">
+        <h1>Bienvenido al HUB de Prácticas</h1>
+
+        <div class="section">
+            <h2>Listado de Prácticas (Páginas HTML)</h2>
+            <ul id="practicas-html-list"></ul>
+        </div>
+
+        <div class="section">
+            <h2>Listado de Prácticas (Código)</h2>
+            <ul id="practicas-raw-list"></ul>
+        </div>
+    </div>
+
+    <footer>
+        <span>ᐅ Hecho por SQG‎& ᐊ ‎ ‎ ‎ ‎ ‎ </span>
+        <a href="https://github.com/OffBranded/Computacion-lol" target="_blank">Ver en GitHub</a>
+    </footer>
 
     <script>
-        // Obtener la lista de archivos HTML en el directorio /PRACTICAS/
+        // Obtener la lista de archivos en el directorio /PRACTICAS/ usando GitHub API
         fetch('https://api.github.com/repos/offbranded/Computacion-lol/contents/PRACTICAS')
             .then(response => response.json())
             .then(data => {
@@ -19,14 +102,31 @@
                 const htmlFiles = data.filter(file => file.name.endsWith('.html'));
 
                 // Generar enlaces para cada archivo HTML encontrado
-                const practicasList = document.getElementById('practicas-list');
+                const practicasHtmlList = document.getElementById('practicas-html-list');
                 htmlFiles.forEach(file => {
                     const listItem = document.createElement('li');
                     const link = document.createElement('a');
                     link.href = 'PRACTICAS/' + file.name;
                     link.textContent = file.name.replace('.html', '');
+                    const icon = document.createElement('i');
+                    icon.classList.add('fas', 'fa-file-alt', 'icon');
+                    link.insertBefore(icon, link.firstChild); // Insertar el icono antes del texto
                     listItem.appendChild(link);
-                    practicasList.appendChild(listItem);
+                    practicasHtmlList.appendChild(listItem);
+                });
+
+                // Generar enlaces para cada archivo HTML encontrado (raw)
+                const practicasRawList = document.getElementById('practicas-raw-list');
+                htmlFiles.forEach(file => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = 'https://raw.githubusercontent.com/offbranded/Computacion-lol/main/PRACTICAS/' + file.name;
+                    link.textContent = file.name.replace('.html', '');
+                    const icon = document.createElement('i');
+                    icon.classList.add('fas', 'fa-code', 'icon');
+                    link.insertBefore(icon, link.firstChild); // Insertar el icono antes del texto
+                    listItem.appendChild(link);
+                    practicasRawList.appendChild(listItem);
                 });
             })
             .catch(error => {
