@@ -8,17 +8,28 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
+        /* CSS for background */
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Set a negative z-index to position it behind other content */
+        }
+
+        /* CSS for foreground */
+        .container {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-color: rgba(250, 250, 250, 0.85);
             color: #333;
-        }
-        .container {
             max-width: 800px;
             margin: 20px auto;
             padding: 0 20px;
+            position: relative; /* Change to relative positioning */
+            z-index: 1; /* Set a higher z-index to position it above the background */
         }
         .section {
             background-color: #fff;
@@ -74,7 +85,145 @@
     </style>
 </head>
 <body>
+    <!-- Background code (IP Addresses) -->
+    <div id="background">
+        <!-- Paste the first code here -->
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>IP Addresses</title>
+            <style>
+                @font-face {
+                    font-family: 'Minecraftia';
+                    src: url('https://db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.woff') format('woff');
+                }
+                body {
+                    margin: 0;
+                    overflow: hidden;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    background-color: rgba(255, 255, 255);
+                    color: #fff;
+                    font-family: 'Minecraftia', sans-serif;
+                    perspective: 1000px; /* Add perspective for 3D effect */
+                }
+                .ip-address {
+                    position: absolute;
+                    font-size: 24px;
+                    font-weight: bold;
+                    transform-style: preserve-3d; /* Ensure the children elements are transformed in 3D space */
+                }
+            </style>
+        </head>
+        <body>
+            <script>
+                // Function to generate a random color
+                function getRandomColor() {
+                    const letters = '0123456789ABCDEF';
+                    let color = '#';
+                    for (let i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
+
+                // Function to create a new IP Address element
+                function createIPAddressElement() {
+                    const ipAddressElement = document.createElement('div');
+                    ipAddressElement.classList.add('ip-address');
+                    ipAddressElement.textContent = 'Loading...';
+                    document.body.appendChild(ipAddressElement);
+
+                    // Center position
+                    const centerX = window.innerWidth / 2;
+                    const centerY = window.innerHeight / 2;
+                    
+                    // Random initial position
+                    let posX = centerX;
+                    let posY = centerY;
+
+                    // Random initial rotation
+                    const initialRotationX = Math.random() * 360; // Random rotation between 0 and 360 degrees
+                    const initialRotationY = Math.random() * 360;
+                    const initialRotationZ = Math.random() * 360;
+
+                    ipAddressElement.style.transform = `rotateX(${initialRotationX}deg) rotateY(${initialRotationY}deg) rotateZ(${initialRotationZ}deg)`;
+
+                    // Initial velocity (increased speed)
+                    let velocityX = Math.random() * 8 - 4; // Random number between -4 and 4
+                    let velocityY = Math.random() * 8 - 4; // Random number between -4 and 4
+
+                    // Rotation variables
+                    let rotationX = initialRotationX;
+                    let rotationY = initialRotationY;
+                    let rotationZ = initialRotationZ;
+                    const rotationIncrement = 2; // Increment for each frame
+
+                    // Animation function
+                    function animate() {
+                        posX += velocityX;
+                        posY += velocityY;
+
+                        // Update rotation values
+                        rotationX += rotationIncrement;
+                        rotationY += rotationIncrement;
+                        rotationZ += rotationIncrement;
+
+                        // Reverse direction and change color if hits the window edges
+                        if (posX <= 0 || posX >= window.innerWidth - ipAddressElement.clientWidth) {
+                            velocityX = -velocityX;
+                            ipAddressElement.style.color = getRandomColor();
+                        }
+                        if (posY <= 0 || posY >= window.innerHeight - ipAddressElement.clientHeight) {
+                            velocityY = -velocityY;
+                            ipAddressElement.style.color = getRandomColor();
+                        }
+
+                        // Update element's position and rotation
+                        ipAddressElement.style.left = posX + 'px';
+                        ipAddressElement.style.top = posY + 'px';
+                        ipAddressElement.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg) rotateZ(${rotationZ}deg)`;
+
+                        requestAnimationFrame(animate);
+                    }
+
+                    // Start animation
+                    animate();
+                }
+
+                // Create 16 IP Address elements
+                for (let i = 0; i < 50; i++) {
+                    createIPAddressElement();
+                }
+
+                // Fetch IP address for each element using an external service
+                fetch('https://api.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const ipAddressElements = document.querySelectorAll('.ip-address');
+                        ipAddressElements.forEach(element => {
+                            element.textContent = data.ip;
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching IP addresses:', error);
+                        const ipAddressElements = document.querySelectorAll('.ip-address');
+                        ipAddressElements.forEach(element => {
+                            element.textContent = "Unknown IP";
+                        });
+                    });
+            </script>
+        </body>
+        </html>
+    </div>
+
+    <!-- Foreground code (HUB) -->
     <div class="container">
+        <!-- Paste the second code here -->
         <h1>Bienvenido al HUB de Prácticas</h1>
 
         <div class="section">
@@ -86,12 +235,11 @@
             <h2>Listado de Prácticas (Código)</h2>
             <ul id="practicas-raw-list"></ul>
         </div>
-    </div>
 
-    <footer>
-        <span>ᐅ Hecho por SQG‎& ᐊ ‎ ‎ ‎ ‎ ‎ </span>
-        <a href="https://github.com/OffBranded/Computacion-lol" target="_blank">Ver en GitHub</a>
-    </footer>
+        <footer>
+            <span>ᐅ Hecho por SQG‎& ᐊ ‎ ‎ ‎ ‎ ‎ </span>
+            <a href="https://github.com/OffBranded/Computacion-lol" target="_blank">Ver en GitHub</a>
+        </footer>
 
     <script>
         // Obtener la lista de archivos en el directorio /PRACTICAS/ usando GitHub API
@@ -133,5 +281,6 @@
                 console.error('Error al obtener la lista de archivos:', error);
             });
     </script>
+    </div>
 </body>
 </html>
