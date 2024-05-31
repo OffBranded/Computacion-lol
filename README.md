@@ -1,3 +1,5 @@
+# PRACTICAS!!!
+
 > [!IMPORTANT]
 > El [INDEX](https://offbranded.github.io/Computacion-lol/) se actualiza automáticamente en orden alfabético.
 
