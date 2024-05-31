@@ -2,7 +2,7 @@
 > Esta pagina se actualiza automaticamente.
 
 > [!WARNING]
-> jaja lol
+> Para identificar si una pagina ah sido copiada (sin haber sido leida almenos), se encuentra un `<!-- Hecho por SQG -->` debajo de `<html>` (en practicas antiguas) / `<html>` y `<body>` (en practicas actuales)
 
 > [!NOTE]
 > 31/05/2024.
