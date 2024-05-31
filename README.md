@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> Esta pagina se actualiza automaticamente.
+> El [INDEX](https://offbranded.github.io/Computacion-lol/) se actualiza automaticamente en orgen alphabetico
 
 > [!WARNING]
 > Para identificar si una pagina ah sido copiada (sin haber sido leída almenos), se encuentra un `<!-- Hecho por SQG -->` debajo de `<html>` (en practicas antiguas) / `<html>` y `<body>` (en practicas actuales)
