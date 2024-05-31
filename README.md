@@ -6,4 +6,4 @@
 
 > [!IMPORTANT]
 > 31/05/2024.
-> Los datos en [PTACTICA 6 C](https://offbranded.github.io/Computacion-lol/PRACTICAS/PRACTICA%206%20C.html) estan incompletos debido a privacidad )
+> Los datos en [PRACTICA 6 C](https://offbranded.github.io/Computacion-lol/PRACTICAS/PRACTICA%206%20C.html) estan incompletos debido a privacidad )
